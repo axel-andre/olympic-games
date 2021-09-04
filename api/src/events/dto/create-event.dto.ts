@@ -1,9 +1,9 @@
-import { IsString, IsMongoId, IsDate } from 'class-validator';
+import { IsString, IsMongoId, IsDateString } from 'class-validator';
 
 export class CreateEventDto {
     @IsString()
     readonly name: string;
-    @IsDate()
+    @IsDateString()
     readonly date: Date;
     @IsMongoId()
     readonly sport: string;

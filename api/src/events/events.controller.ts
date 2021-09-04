@@ -11,17 +11,15 @@ export class EventsController {
     constructor(private service: EventsService) { }
 
     @Get()
-    async getAllEvents(): Promise<FormatedEvent[]> {
+    async getAllEvents() {
         const events = await this.service.findAll();
-        const formatedEvents: FormatedEvent[] = events.map((event: Event) => {
-            const formatedEvent: FormatedEvent = {
-                ...event,
+        return events.map((event: any) => {
+            return {
+                ...event._doc,
                 day: event.date.toLocaleDateString('fr-FR'),
                 hours: event.date.toLocaleTimeString('fr-FR')
             }
-            return formatedEvent
-        })
-        return formatedEvents;
+        });
     }
 
     @Get('/:id')
