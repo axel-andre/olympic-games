@@ -6,15 +6,19 @@
 ```bash
 $ yarn install
 ```
+### Dupliquez le fichier `.env.example` en `.env` et remplacer la valeur de `MONGODB_CONNECTION_STRING` par :
+```
+mongodb+srv://nestjs-server:k1agt2ShlXUOAy7K@cluster0.zj5mn.mongodb.net/olympic-games?retryWrites=true&w=majority
+```
 
 ## Lancer l'application
 
 ```bash
 # developement
-$ npm run start:dev
+$ yarn start:dev
 
 # production
-$ npm run start:prod
+$ yarn start:prod
 ```
 ## Accéder à l'API
 ```
