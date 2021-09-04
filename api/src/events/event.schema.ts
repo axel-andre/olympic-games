@@ -12,6 +12,8 @@ export class Event {
     date: Date;
     @Prop({ type: Types.ObjectId, ref: 'Sport' })
     sport: Sport | string
+    @Prop({ type: [{ type: Types.ObjectId, ref: 'Sportmen' }] })
+    medalHolders: Sport | string
 }
 
 export interface FormatedEvent extends Event {

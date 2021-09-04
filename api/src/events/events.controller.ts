@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { Event } from './event.schema';
+import { Event, FormatedEvent } from './event.schema';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { EditEventDto } from './dto/edit-event.dto';
@@ -11,14 +11,27 @@ export class EventsController {
     constructor(private service: EventsService) { }
 
     @Get()
-    async getAllEvents(): Promise<Event[]> {
+    async getAllEvents(): Promise<FormatedEvent[]> {
         const events = await this.service.findAll();
-        return events;
+        const formatedEvents: FormatedEvent[] = events.map((event: Event) => {
+            const formatedEvent: FormatedEvent = {
+                ...event,
+                day: event.date.toLocaleDateString('fr-FR'),
+                hours: event.date.toLocaleTimeString('fr-FR')
+            }
+            return formatedEvent
+        })
+        return formatedEvents;
     }
 
     @Get('/:id')
-    async getOneEvent(@Param() params: findOneParams): Promise<Event> {
-        return await this.service.findOne(params.id);
+    async getOneEvent(@Param() params: findOneParams): Promise<FormatedEvent> {
+        const event = await this.service.findOne(params.id);
+        return {
+            ...event,
+            day: event.date.toLocaleDateString('fr-FR'),
+            hours: event.date.toLocaleTimeString('fr-FR')
+        }
     }
 
     @Post()

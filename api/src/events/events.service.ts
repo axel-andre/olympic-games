@@ -12,7 +12,8 @@ export class EventsService {
     async findOne(id: string): Promise<Event> {
         const [event] = await this.eventModel
             .find({ _id: id })
-            .populate('sport');
+            .populate('sport')
+            .populate('medalHolders');
         if (!event)
             throw new NotFoundException('Event not found');
         return event;
@@ -21,7 +22,8 @@ export class EventsService {
     async findAll(): Promise<Event[]> {
         return await this.eventModel
             .find()
-            .populate('sport');
+            .populate('sport')
+            .populate('medalHolders');
     }
 
     async create(createEventDto: CreateEventDto): Promise<Event> {
@@ -39,7 +41,9 @@ export class EventsService {
     }
 
     async deleteOne(id: string): Promise<Event> {
-        let event = await this.eventModel.findOne({ _id: id });
+        let event = await this.eventModel.findOne({ _id: id })
+            .populate('sport')
+            .populate('medalHolders');
         if (!event)
             throw new NotFoundException('Event not found');
         return await this.eventModel.findOneAndRemove({ _id: id });
