@@ -24,3 +24,31 @@ $ yarn start:prod
 ```
 http://locahost:3000/
 ```
+
+## Data structures
+
+### Sport
+```
+    Sport {
+        String name
+    }
+```
+### Event
+```
+    Event {
+        String name
+        ISODate date
+        (Sport | String) sport
+        String day
+        String hours
+        Array<Sportman> medalHolders
+    }
+```
+### Sportman
+```
+    Sportman {
+        String firstName
+        String lastName
+        (Sport | String) sport
+    }
+```
